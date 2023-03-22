@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let required: boolean;
+  export let required: boolean
 </script>
 
 {#if required}

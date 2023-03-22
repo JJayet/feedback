@@ -1,15 +1,15 @@
 <script lang="ts">
-  import LabelAsterisk from './LabelAsterisk.svelte';
+  import LabelAsterisk from './LabelAsterisk.svelte'
 
-  export let price = false;
-  export let name: string;
-  export let label: string;
-  export let required = false;
-  export let placeholder = '';
-  export let item: Record<string, unknown> | null;
-  export let errors: { message: string; path: string[] }[] | null = null;
+  export let price = false
+  export let name: string
+  export let label: string
+  export let required = false
+  export let placeholder = ''
+  export let item: Record<string, unknown> | null
+  export let errors: { message: string; path: string[] }[] | null = null
 
-  $: error = errors?.find((e) => e.path.includes(name));
+  $: error = errors?.find((e) => e.path.includes(name))
 </script>
 
 <label>

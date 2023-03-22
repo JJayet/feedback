@@ -1,13 +1,14 @@
 <script lang="ts">
-  import { invalidateAll } from '$app/navigation';
-  import HeaderNavLink from './HeaderNavLink.svelte';
+  import { invalidateAll, goto } from '$app/navigation'
+  import HeaderNavLink from './HeaderNavLink.svelte'
 
-  export let isAuthenticated: boolean;
+  export let isAuthenticated: boolean
 
   const logout = async () => {
-    await fetch('/logout', { method: 'POST' });
-    invalidateAll();
-  };
+    await fetch('/logout', { method: 'POST' })
+    await goto('/')
+    invalidateAll()
+  }
 </script>
 
 <header>
@@ -18,10 +19,9 @@
   <hr />
   <nav>
     <ul>
-      <HeaderNavLink to="/authors" title="Authors" />
-      <HeaderNavLink to="/books" title="Books" />
-      <HeaderNavLink to="/stores" title="Stores" />
       {#if isAuthenticated}
+        <HeaderNavLink to="/users" title="Users" />
+        <HeaderNavLink to="/feedbacks" title="Feedbacks" />
         <HeaderNavLink on:click={logout} title="Logout" />
       {:else}
         <HeaderNavLink to="/login" title="Login" />

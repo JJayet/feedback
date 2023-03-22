@@ -12,6 +12,8 @@ model User {
   firstName String
   lastName  String
   email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   givenFeedbacks    Feedback[] @relation("givenByUser")
@@ -19,12 +21,13 @@ model User {
 }
 
 model Feedback {
-  id            String  @id @default(cuid())
+  id            String   @id @default(cuid())
   firstAnswer   String
   secondAnswer  String
   thirdAnswer   String?
   givenToUserId String
   givenByUserId String
+  createdAt     DateTime @default(now())
 
   givenByUser User @relation(fields: [givenByUserId], references: [id], name: "givenByUser")
   givenToUser User @relation(fields: [givenToUserId], references: [id], name: "givenToUser")

@@ -1,37 +1,41 @@
 <script lang="ts">
-  import { goto } from '$app/navigation';
-  import { page } from '$app/stores';
-  import dayjs from '$lib/dayjs';
-  import IconAdd from '$lib/icons/IconAdd.svelte';
-  import IconEmpty from '$lib/icons/IconEmpty.svelte';
-  import IconPencil from '$lib/icons/IconPencil.svelte';
-  import IconTrash from '$lib/icons/IconTrash.svelte';
-  import IconVerticalDots from '$lib/icons/IconVerticalDots.svelte';
-  import debounce from 'debounce';
-  import { createEventDispatcher, onDestroy } from 'svelte';
-  import { fade } from 'svelte/transition';
-  import BusyOverlay from './BusyOverlay.svelte';
+  import { goto } from '$app/navigation'
+  import { page } from '$app/stores'
+  import dayjs from '$lib/dayjs'
+  import IconAdd from '$lib/icons/IconAdd.svelte'
+  import IconEmpty from '$lib/icons/IconEmpty.svelte'
+  import IconPencil from '$lib/icons/IconPencil.svelte'
+  import IconTrash from '$lib/icons/IconTrash.svelte'
+  import IconVerticalDots from '$lib/icons/IconVerticalDots.svelte'
+  import debounce from 'debounce'
+  import { createEventDispatcher, onDestroy } from 'svelte'
+  import { fade } from 'svelte/transition'
+  import BusyOverlay from './BusyOverlay.svelte'
 
-  type T = $$Generic<{ id: string; updatedAt: Date }>;
+  type T = $$Generic<{ id: string; createdAt: Date }>
 
-  export let busy = false;
-  export let title: string;
-  export let items: T[];
+  export let busy = false
+  export let title: string
+  export let items: T[]
   export let columns: {
-    title: string;
-    grow?: true;
-    nowrap?: true;
-    align?: 'center' | 'right';
-    accessor: ((record: T) => string | number) | keyof T;
-  }[];
+    title: string
+    grow?: true
+    nowrap?: true
+    align?: 'center' | 'right'
+    accessor: ((record: T) => string | number) | keyof T
+  }[]
 
-  const dispatch = createEventDispatcher<{ add: never; edit: string; delete: string }>();
+  const dispatch = createEventDispatcher<{
+    add: never
+    edit: string
+    delete: string
+  }>()
 
   const filter = debounce((q: string) => {
-    goto(`${location.pathname}${q ? `?q=${q}` : ''}`, { keepFocus: true });
-  }, 500);
+    goto(`${location.pathname}${q ? `?q=${q}` : ''}`, { keepFocus: true })
+  }, 500)
 
-  onDestroy(() => filter.clear());
+  onDestroy(() => filter.clear())
 </script>
 
 <article>
@@ -53,7 +57,9 @@
       />
     </div>
     <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <div class="icon-button" title="Add" on:click={() => dispatch('add')}><IconAdd /></div>
+    <div class="icon-button" title="Add" on:click={() => dispatch('add')}>
+      <IconAdd />
+    </div>
   </div>
   <figure>
     <table>
@@ -70,7 +76,11 @@
             >
           {/each}
           <th scope="col" class="align-right nowrap">Last updated</th>
-          <th scope="col" class="align-right row-actions-header" title="Row actions">
+          <th
+            scope="col"
+            class="align-right row-actions-header"
+            title="Row actions"
+          >
             <IconVerticalDots />
           </th>
         </tr>
@@ -86,10 +96,14 @@
                   class:align-center={align === 'center'}
                   class:align-right={align === 'right'}
                 >
-                  {typeof accessor === 'function' ? accessor(item) : item[accessor]}
+                  {typeof accessor === 'function'
+                    ? accessor(item)
+                    : item[accessor]}
                 </td>
               {/each}
-              <td class="align-right nowrap">{dayjs(item.updatedAt).fromNow()}</td>
+              <td class="align-right nowrap"
+                >{dayjs(item.updatedAt).fromNow()}</td
+              >
               <td class="align-right nowrap">
                 <!-- svelte-ignore a11y-click-events-have-key-events -->
                 <div

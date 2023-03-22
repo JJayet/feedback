@@ -1,38 +1,39 @@
 <script lang="ts">
-  import { enhance } from '$app/forms';
-  import { goto, invalidateAll } from '$app/navigation';
-  import { page } from '$app/stores';
-  import type { ActionData } from './$types';
+  import { enhance } from '$app/forms'
+  import { goto, invalidateAll } from '$app/navigation'
+  import { page } from '$app/stores'
+  import type { ActionData } from './$types'
 
-  export let form: ActionData;
+  export let form: ActionData
 
-  let error = false;
-  let emailInput: HTMLInputElement;
-  let passwordInput: HTMLInputElement;
+  let error = false
+  let emailInput: HTMLInputElement
+  let passwordInput: HTMLInputElement
 
-  $: returnTo = $page.url.searchParams.get('returnTo');
+  $: returnTo = $page.url.searchParams.get('returnTo')
 
   $: (async () => {
     if (form?.success) {
-      await invalidateAll();
-      await goto(returnTo || '/');
+      await invalidateAll()
+      await goto(returnTo || '/')
     } else if (form?.error) {
-      error = true;
+      error = true
     }
-  })();
+  })()
 
-  const autofill = (user: 'john' | 'jane') => () => {
-    emailInput.value = `${user}@mail.com`;
-    passwordInput.value = user === 'john' ? '1234' : 'qwer';
-  };
+  const autofill = (user: 'jon' | 'jpb') => () => {
+    emailInput.value =
+      user === 'jon' ? 'jonathan@jayet.io' : 'jean-pascal@bois.io'
+    passwordInput.value = '123123'
+  }
 
   const clearError = () => {
-    error = false;
-  };
+    error = false
+  }
 </script>
 
 <svelte:head>
-  <title>Login • Bookstall</title>
+  <title>Login</title>
 </svelte:head>
 
 <form method="POST" use:enhance>
@@ -41,8 +42,12 @@
     <!-- svelte-ignore a11y-label-has-associated-control -->
     <label>Autofill</label>
     <div class="grid">
-      <button class="secondary" on:click|preventDefault={autofill('john')}>John</button>
-      <button class="secondary" on:click|preventDefault={autofill('jane')}>Jane</button>
+      <button class="secondary" on:click|preventDefault={autofill('jon')}
+        >Jon</button
+      >
+      <button class="secondary" on:click|preventDefault={autofill('jpb')}
+        >JPB</button
+      >
     </div>
     <label>
       Email
@@ -50,7 +55,12 @@
     </label>
     <label>
       Password
-      <input name="password" type="password" required bind:this={passwordInput} />
+      <input
+        name="password"
+        type="password"
+        required
+        bind:this={passwordInput}
+      />
     </label>
     <footer>
       {#if returnTo}

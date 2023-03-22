@@ -4,13 +4,17 @@
     >Ionuț-Cristian Florescu</a
   >
   —
-  <a href="https://en.wikipedia.org/wiki/ISC_license" target="_blank" rel="noreferrer"
-    >ISC License</a
+  <a
+    href="https://en.wikipedia.org/wiki/ISC_license"
+    target="_blank"
+    rel="noreferrer">ISC License</a
   >
   <br />
   This is a sample SvelteKit application illustrating the usage of ✨
-  <a href="https://github.com/icflorescu/trpc-sveltekit" target="_blank" rel="noreferrer"
-    >trpc-sveltekit</a
+  <a
+    href="https://github.com/icflorescu/trpc-sveltekit"
+    target="_blank"
+    rel="noreferrer">trpc-sveltekit</a
   >.
   <br />
   Elegant styles without <code>.classes</code> by

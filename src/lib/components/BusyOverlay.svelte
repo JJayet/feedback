@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { fade } from 'svelte/transition';
+  import { fade } from 'svelte/transition'
 
-  export let visible: boolean;
+  export let visible: boolean
 </script>
 
 {#if visible}

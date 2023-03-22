@@ -1,30 +1,30 @@
 <script lang="ts">
-  import { browser } from '$app/environment';
-  import LabelAsterisk from './LabelAsterisk.svelte';
+  import { browser } from '$app/environment'
+  import LabelAsterisk from './LabelAsterisk.svelte'
 
-  let textarea: HTMLTextAreaElement;
+  let textarea: HTMLTextAreaElement
 
-  export let name: string;
-  export let label: string;
-  export let required = false;
-  export let placeholder = '';
-  export let item: Record<string, unknown> | null;
-  export let errors: { message: string; path: string[] }[] | null = null;
+  export let name: string
+  export let label: string
+  export let required = false
+  export let placeholder = ''
+  export let item: Record<string, unknown> | null
+  export let errors: { message: string; path: string[] }[] | null = null
 
-  $: error = errors?.find((e) => e.path.includes(name));
+  $: error = errors?.find((e) => e.path.includes(name))
 
   const autosize = () => {
     if (browser) {
       requestAnimationFrame(() => {
         if (textarea) {
-          textarea.style.height = '0';
-          textarea.style.height = `${textarea.scrollHeight + 2}px`;
+          textarea.style.height = '0'
+          textarea.style.height = `${textarea.scrollHeight + 2}px`
         }
-      });
+      })
     }
-  };
+  }
 
-  $: item?.[name], autosize();
+  $: item?.[name], autosize()
 </script>
 
 <label>

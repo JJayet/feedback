@@ -1,48 +1,48 @@
 <script lang="ts">
-  import dayjs from '$lib/dayjs';
-  import IconClock from '$lib/icons/IconClock.svelte';
-  import { createEventDispatcher } from 'svelte';
-  import BusyOverlay from './BusyOverlay.svelte';
+  import dayjs from '$lib/dayjs'
+  import IconClock from '$lib/icons/IconClock.svelte'
+  import { createEventDispatcher } from 'svelte'
+  import BusyOverlay from './BusyOverlay.svelte'
 
-  type T = $$Generic;
+  type T = $$Generic
 
-  export let itemName: string;
+  export let itemName: string
   export let item:
     | (T & {
-        id: string | null;
-        updatedAt?: Date;
-        updatedBy?: { name: string } | null;
+        id: string | null
+        updatedAt?: Date
+        updatedBy?: { name: string } | null
       })
-    | null;
-  export let busy = false;
-  export let arrayFields: string[] | undefined = undefined;
+    | null
+  export let busy = false
+  export let arrayFields: string[] | undefined = undefined
 
-  const dispatch = createEventDispatcher<{ cancel: never; save: T }>();
+  const dispatch = createEventDispatcher<{ cancel: never; save: T }>()
 
   const handleCancel = () => {
-    dispatch('cancel');
-  };
+    dispatch('cancel')
+  }
 
   const handleSave = (e: { currentTarget: HTMLFormElement }) => {
-    const formData = new FormData(e.currentTarget);
-    const data: Record<string, unknown> = {};
+    const formData = new FormData(e.currentTarget)
+    const data: Record<string, unknown> = {}
 
     if (arrayFields) {
       for (const key of arrayFields) {
-        data[key] = [];
+        data[key] = []
       }
     }
 
     for (let field of formData) {
-      const [key, value] = field;
+      const [key, value] = field
       if (arrayFields?.includes(key)) {
-        (data[key] as unknown[]).push(value);
+        ;(data[key] as unknown[]).push(value)
       } else {
-        data[key] = value;
+        data[key] = value
       }
     }
-    dispatch('save', data as T);
-  };
+    dispatch('save', data as T)
+  }
 </script>
 
 <form on:submit|preventDefault={handleSave}>
@@ -71,7 +71,9 @@
         </small>
       {/if}
       <footer>
-        <button class="secondary" on:click|preventDefault={handleCancel}>Cancel</button>
+        <button class="secondary" on:click|preventDefault={handleCancel}
+          >Cancel</button
+        >
         <button type="submit">Save</button>
       </footer>
     </article>
